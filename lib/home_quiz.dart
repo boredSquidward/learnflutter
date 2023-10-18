@@ -27,19 +27,20 @@ class _Quiz extends State<Quiz> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Padding(
-            padding: const EdgeInsets.all(10),
-            child: Text(
-              question,
-              style: const TextStyle(fontSize: 20),
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              children: [
+                Text(
+                  textAlign: TextAlign.center,
+                  question,
+                  style: const TextStyle(fontSize: 20),
+                ),
+                const Padding(padding: EdgeInsets.symmetric(vertical: 5)),
+                ...questions[counter].answers.map((answer) =>
+                    AnswerButton(onPressed: moveToNext, answer: answer))
+              ],
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: Column(children: [
-              ...questions[counter].answers.map((answer) =>
-                  AnswerButton(onPressed: moveToNext, answer: answer))
-            ]),
-          )
         ],
       ),
     );
