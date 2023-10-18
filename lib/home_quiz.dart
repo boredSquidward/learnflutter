@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:learnflutter/data/questions.dart';
 import 'package:learnflutter/home_answer_btn.dart';
 
@@ -23,7 +24,7 @@ class _Quiz extends State<Quiz> {
     }
 
     String question = questions[currentQuestionIndex].question;
-    print(questions[0].getShuffledAnswers());
+
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -35,7 +36,7 @@ class _Quiz extends State<Quiz> {
                 Text(
                   textAlign: TextAlign.center,
                   question,
-                  style: const TextStyle(fontSize: 20),
+                  style: GoogleFonts.roboto(fontSize: 24),
                 ),
                 const Padding(padding: EdgeInsets.symmetric(vertical: 5)),
                 ...questions[currentQuestionIndex].getShuffledAnswers().map(

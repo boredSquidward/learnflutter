@@ -14,10 +14,14 @@ class AnswerButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: onPressed,
         style: ButtonStyle(
-            backgroundColor: MaterialStatePropertyAll(Colors.purple[900]),
-            shape: MaterialStatePropertyAll(RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(50)))),
-        child: Text(answer),
+          backgroundColor: MaterialStatePropertyAll(Colors.purple[900]),
+          shape: MaterialStatePropertyAll(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(50),
+            ),
+          ),
+        ),
+        child: Text(answer, textAlign: TextAlign.center),
       ),
     );
   }
