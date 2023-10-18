@@ -21,10 +21,6 @@ class _Quiz extends State<Quiz> {
     }
 
     String question = questions[counter].question;
-    String answer0 = questions[counter].answers[0];
-    String answer1 = questions[counter].answers[1];
-    String answer2 = questions[counter].answers[2];
-    String answer3 = questions[counter].answers[3];
 
     return Center(
       child: Column(
@@ -40,10 +36,8 @@ class _Quiz extends State<Quiz> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Column(children: [
-              AnswerButton(onPressed: moveToNext, answer: answer0),
-              AnswerButton(onPressed: moveToNext, answer: answer1),
-              AnswerButton(onPressed: moveToNext, answer: answer2),
-              AnswerButton(onPressed: moveToNext, answer: answer3),
+              ...questions[counter].answers.map((answer) =>
+                  AnswerButton(onPressed: moveToNext, answer: answer))
             ]),
           )
         ],
