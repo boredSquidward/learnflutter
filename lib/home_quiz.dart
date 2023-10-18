@@ -10,18 +10,20 @@ class Quiz extends StatefulWidget {
 }
 
 class _Quiz extends State<Quiz> {
-  var counter = 0;
+  var currentQuestionIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     void moveToNext() {
       setState(() {
-        counter > 4 ? counter = 0 : counter++;
+        currentQuestionIndex > 4
+            ? currentQuestionIndex = 0
+            : currentQuestionIndex++;
       });
     }
 
-    String question = questions[counter].question;
-
+    String question = questions[currentQuestionIndex].question;
+    print(questions[0].getShuffledAnswers());
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -36,8 +38,9 @@ class _Quiz extends State<Quiz> {
                   style: const TextStyle(fontSize: 20),
                 ),
                 const Padding(padding: EdgeInsets.symmetric(vertical: 5)),
-                ...questions[counter].answers.map((answer) =>
-                    AnswerButton(onPressed: moveToNext, answer: answer))
+                ...questions[currentQuestionIndex].getShuffledAnswers().map(
+                    (answer) =>
+                        AnswerButton(onPressed: moveToNext, answer: answer))
               ],
             ),
           ),
