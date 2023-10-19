@@ -6,11 +6,9 @@ import 'package:learnflutter/home_answer_btn.dart';
 class Quiz extends StatefulWidget {
   const Quiz({
     super.key,
-    required this.onQuizCompletion,
     required this.onSelectAnswer,
   });
 
-  final void Function() onQuizCompletion;
   final void Function(String answer) onSelectAnswer;
 
   @override
@@ -20,17 +18,13 @@ class Quiz extends StatefulWidget {
 class _Quiz extends State<Quiz> {
   var currentQuestionIndex = 0;
 
-  void goToResultScreen() {
-    widget.onQuizCompletion();
-  }
-
   @override
   Widget build(BuildContext context) {
-    void moveToNext(String answer) {
+    void moveToNextQuestion(String answer) {
       widget.onSelectAnswer(answer);
 
       setState(() {
-        currentQuestionIndex < 4 ? currentQuestionIndex++ : goToResultScreen();
+        currentQuestionIndex++;
       });
     }
 
@@ -54,7 +48,7 @@ class _Quiz extends State<Quiz> {
                     .getShuffledAnswers()
                     .map((answer) => AnswerButton(
                         onPressed: () {
-                          moveToNext(answer);
+                          moveToNextQuestion(answer);
                         },
                         answer: answer))
               ],

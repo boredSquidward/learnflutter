@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:learnflutter/data/questions.dart';
 import 'package:learnflutter/home_quiz.dart';
 import 'package:learnflutter/home_result.dart';
 import 'package:learnflutter/home_start.dart';
@@ -12,11 +13,7 @@ class Home extends StatefulWidget {
 
 class _Home extends State<Home> {
   String activeScreen = 'start-screen';
-  final List<String> chosenAnswers = [];
-
-  void chooseAnswer(String answer) {
-    chosenAnswers.add(answer);
-  }
+  List<String> chosenAnswers = [];
 
   void switchToQuizScreen() {
     setState(() {
@@ -27,6 +24,22 @@ class _Home extends State<Home> {
   void switchToResultScreen() {
     setState(() {
       activeScreen = 'result-screen';
+    });
+  }
+
+  void addAnswerToList(String answer) {
+    chosenAnswers.add(answer);
+
+    if (chosenAnswers.length == questions.length) {
+      switchToResultScreen();
+    }
+  }
+
+  void goBackHome() {
+    chosenAnswers = [];
+
+    setState(() {
+      activeScreen = 'start-screen';
     });
   }
 
@@ -41,10 +54,9 @@ class _Home extends State<Home> {
                 ? HomeStart(switchToQuizScreen)
                 : activeScreen == 'quiz-screen'
                     ? Quiz(
-                        onQuizCompletion: switchToQuizScreen,
-                        onSelectAnswer: chooseAnswer,
+                        onSelectAnswer: addAnswerToList,
                       )
-                    : const Result(),
+                    : Result(onTap: goBackHome, answers: chosenAnswers),
           )),
     );
   }
