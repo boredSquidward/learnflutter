@@ -4,7 +4,8 @@ import 'package:learnflutter/data/questions.dart';
 import 'package:learnflutter/home_answer_btn.dart';
 
 class Quiz extends StatefulWidget {
-  const Quiz({super.key});
+  const Quiz({super.key, required this.onQuizCompletion});
+  final void Function() onQuizCompletion;
 
   @override
   State<StatefulWidget> createState() => _Quiz();
@@ -13,13 +14,15 @@ class Quiz extends StatefulWidget {
 class _Quiz extends State<Quiz> {
   var currentQuestionIndex = 0;
 
+  void showResult() {
+    widget.onQuizCompletion();
+  }
+
   @override
   Widget build(BuildContext context) {
     void moveToNext() {
       setState(() {
-        currentQuestionIndex > 4
-            ? currentQuestionIndex = 0
-            : currentQuestionIndex++;
+        currentQuestionIndex < 4 ? currentQuestionIndex++ : showResult();
       });
     }
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:learnflutter/home_quiz.dart';
+// import 'package:learnflutter/home_result.dart';
 import 'package:learnflutter/home_start.dart';
 
 class Home extends StatefulWidget {
@@ -12,9 +13,15 @@ class Home extends StatefulWidget {
 class _Home extends State<Home> {
   String activeScreen = 'start-screen';
 
-  void switchScreen() {
+  void switchToQuizScreen() {
     setState(() {
-      activeScreen = 'question-screen';
+      activeScreen = 'quiz-screen';
+    });
+  }
+
+  void switchToResultScreen() {
+    setState(() {
+      activeScreen = 'result-screen';
     });
   }
 
@@ -25,10 +32,14 @@ class _Home extends State<Home> {
       home: Scaffold(
         backgroundColor: const Color.fromARGB(255, 242, 242, 242),
         body: Center(
-          child: activeScreen == 'start-screen'
-              ? HomeStart(switchScreen)
-              : const Quiz(),
-        ),
+            child: activeScreen == 'start-screen'
+                ? HomeStart(switchToQuizScreen)
+                : activeScreen == 'quiz-screen'
+                    ? Quiz(
+                        onQuizCompletion: switchToQuizScreen,
+                      )
+                    // : const Result(),
+                    : null),
       ),
     );
   }
