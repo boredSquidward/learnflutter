@@ -4,8 +4,14 @@ import 'package:learnflutter/data/questions.dart';
 import 'package:learnflutter/home_answer_btn.dart';
 
 class Quiz extends StatefulWidget {
-  const Quiz({super.key, required this.onQuizCompletion});
+  const Quiz({
+    super.key,
+    required this.onQuizCompletion,
+    required this.onSelectAnswer,
+  });
+
   final void Function() onQuizCompletion;
+  final void Function(String answer) onSelectAnswer;
 
   @override
   State<StatefulWidget> createState() => _Quiz();
@@ -14,15 +20,17 @@ class Quiz extends StatefulWidget {
 class _Quiz extends State<Quiz> {
   var currentQuestionIndex = 0;
 
-  void showResult() {
+  void goToResultScreen() {
     widget.onQuizCompletion();
   }
 
   @override
   Widget build(BuildContext context) {
-    void moveToNext() {
+    void moveToNext(String answer) {
+      widget.onSelectAnswer(answer);
+
       setState(() {
-        currentQuestionIndex < 4 ? currentQuestionIndex++ : showResult();
+        currentQuestionIndex < 4 ? currentQuestionIndex++ : goToResultScreen();
       });
     }
 
@@ -42,9 +50,13 @@ class _Quiz extends State<Quiz> {
                   style: GoogleFonts.roboto(fontSize: 24),
                 ),
                 const Padding(padding: EdgeInsets.symmetric(vertical: 5)),
-                ...questions[currentQuestionIndex].getShuffledAnswers().map(
-                    (answer) =>
-                        AnswerButton(onPressed: moveToNext, answer: answer))
+                ...questions[currentQuestionIndex]
+                    .getShuffledAnswers()
+                    .map((answer) => AnswerButton(
+                        onPressed: () {
+                          moveToNext(answer);
+                        },
+                        answer: answer))
               ],
             ),
           ),
