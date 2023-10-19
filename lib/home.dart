@@ -53,10 +53,10 @@ class _Home extends State<Home> {
             child: activeScreen == 'start-screen'
                 ? HomeStart(switchToQuizScreen)
                 : activeScreen == 'quiz-screen'
-                    ? Quiz(
+                    ? QuizScreen(
                         onSelectAnswer: addAnswerToList,
                       )
-                    : Result(onTap: goBackHome, answers: chosenAnswers),
+                    : ResultsScreen(onTap: goBackHome, answers: chosenAnswers),
           )),
     );
   }

@@ -3,8 +3,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:learnflutter/data/questions.dart';
 import 'package:learnflutter/home_answer_btn.dart';
 
-class Quiz extends StatefulWidget {
-  const Quiz({
+class QuizScreen extends StatefulWidget {
+  const QuizScreen({
     super.key,
     required this.onSelectAnswer,
   });
@@ -12,10 +12,10 @@ class Quiz extends StatefulWidget {
   final void Function(String answer) onSelectAnswer;
 
   @override
-  State<StatefulWidget> createState() => _Quiz();
+  State<StatefulWidget> createState() => _QuizScreen();
 }
 
-class _Quiz extends State<Quiz> {
+class _QuizScreen extends State<QuizScreen> {
   var currentQuestionIndex = 0;
 
   @override
